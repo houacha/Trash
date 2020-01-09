@@ -18,6 +18,10 @@ namespace TrashCollector.Controllers
         // GET: Customers
         public ActionResult Index()
         {
+            //DateTime dateTime = DateTime.Now;
+            //var today = dateTime.DayOfWeek;
+            //var customers = db.Customers.Where(c=>c.PickupDay == Convert.ToString(today)).Include(c => c.ApplicationUser);
+            //return View();
             var customers = db.Customers.Include(c => c.ApplicationUser);
             return View(customers.ToList());
         }
@@ -63,6 +67,33 @@ namespace TrashCollector.Controllers
             return View(customer);
         }
 
+        public ActionResult Register()
+        {
+            var Id = User.Identity.GetUserId();
+            var person = db.Customers.Where(c => c.ApplicationId == Id).Select(c => c).SingleOrDefault();
+            return View(person);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Register(Customer customer)
+        {
+            try
+            {
+                var personId = User.Identity.GetUserId();
+                var personToEdit = db.Customers.Where(c => c.ApplicationId == personId).Select(c => c).SingleOrDefault();
+                personToEdit.PickupDay = customer.PickupDay;
+                personToEdit.ExtraPickupDate = customer.ExtraPickupDate;
+                personToEdit.SuspendedStart = customer.SuspendedStart;
+                personToEdit.SuspendedEnd = customer.SuspendedEnd;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                return View(customer);
+            }
+        }
+
         // GET: Customers/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -84,7 +115,7 @@ namespace TrashCollector.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Zip,Address,FirstName,LastName,State,City,Balance,PickupDay,ExtraPickupDate,SuspendedStart,SuspendedEnd,ApplicationId")] Customer customer)
+        public ActionResult Edit([Bind(Include = "Id,Zip,Address,FirstName,LastName,State,City")] Customer customer)
         {
             if (ModelState.IsValid)
             {

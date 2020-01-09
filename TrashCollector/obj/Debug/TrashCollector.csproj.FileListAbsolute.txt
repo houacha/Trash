@@ -106,3 +106,4 @@ C:\Users\houac\Desktop\Devcode\Trash Collector\TrashCollector\TrashCollector\obj
 C:\Users\houac\Desktop\Devcode\Trash Collector\TrashCollector\TrashCollector\obj\Debug\TrashCollector.csproj.GenerateResource.cache
 C:\Users\houac\Desktop\Devcode\Trash Collector\TrashCollector\TrashCollector\obj\Debug\TrashCollector.Migrations.roles.resources
 C:\Users\houac\Desktop\Devcode\Trash Collector\TrashCollector\TrashCollector\obj\Debug\TrashCollector.Migrations.updatecustomers.resources
+C:\Users\houac\Desktop\Devcode\Trash Collector\TrashCollector\TrashCollector\obj\Debug\TrashCollector.Migrations.addrequiredparameterstomodels.resources
