@@ -147,7 +147,7 @@ namespace TrashCollector.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = db.Employees.Find(id);
+            var employee = db.Employees.Include(e => e.ApplicationUser).Where(e => e.Id == id).Select(e => e).SingleOrDefault();
             if (employee == null)
             {
                 return HttpNotFound();

@@ -3,61 +3,80 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Garbo-Men</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
+<body style="background-image:url(../../Content/architecture-building-exterior-buildings-1389339.jpg); background-size:cover">
+    <nav class="navbar navbar-inverse navbar-fixed-top" style="background-color:cornflowerblue; opacity:.9">
+        <div class="container-fluid" style="">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Garbo-Men", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <p style="font-weight:bold; font-style:italic">@Html.ActionLink("Garbo-Men", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })</p>
             </div>
-            <div class="navbar-collapse collapse">
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-
-                    @if (User.IsInRole("Admin") == true)
-                    {
-                        <li> @Html.ActionLink("All Users", "Index", "Employees")</li>
-                        <li> @Html.ActionLink("Add Employee", "Index", "Role")</li>
-                    }
-                    else if (User.IsInRole("Manager") == true)
-                    {
-                        <li> @Html.ActionLink("Home", "Index", "Employees")</li>
-                        <li> @Html.ActionLink("Pick-up Orders", "Filter", "Customers")</li>
-                    }
-                    else if (User.IsInRole("Employee") == true)
-                    {
-                        <li> @Html.ActionLink("Home", "Filter", "Customers")</li>
-                    }
-                    else if (User.IsInRole("Customer") == true)
-                    {
-                        <li> @Html.ActionLink("Balance", "Balance", "Customers")</li>
-                        <li> @Html.ActionLink("Register/Edit Pick-up", "Register", "Customers")</li>
-                    }
-                    else
-                    {
-                        <li> @Html.ActionLink("Home", "Index", "Home")</li>
-                    }
-
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" role="button" aria-expanded="false" href="#" data-toggle="dropdown" style="font-weight:600"> Options <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            @if (User.IsInRole("Admin") == true)
+                            {
+                                <li> @Html.ActionLink("Home", "Index", "Home")</li>
+                                <li class="divider"></li>
+                                <li> @Html.ActionLink("All Users", "Index", "Employees")</li>
+                                <li class="divider"></li>
+                                <li> @Html.ActionLink("Add Employee", "Index", "Role")</li>
+                            }
+                            else if (User.IsInRole("Manager") == true)
+                            {
+                                <li> @Html.ActionLink("Home", "Index", "Employees")</li>
+                                <li class="divider"></li>
+                                <li> @Html.ActionLink("Pick-up Orders", "Filter", "Customers")</li>
+                            }
+                            else if (User.IsInRole("Employee") == true)
+                            {
+                                <li> @Html.ActionLink("Home", "Filter", "Customers")</li>
+                            }
+                            else if (User.IsInRole("Customer") == true)
+                            {
+                                <li> @Html.ActionLink("Balance", "Balance", "Customers")</li>
+                                <li class="divider"></li>
+                                <li> @Html.ActionLink("Register/Edit Pick-up", "Register", "Customers")</li>
+                            }
+                            else
+                            {
+                                <li> @Html.ActionLink("Home", "Index", "Home")</li>
+                            }
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" role="button" aria-expanded="false" href="#" data-toggle="dropdown" style="font-weight:600"> Company Info <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("About", "About", "Home")</li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        </ul>
+                    </li>
                 </ul>
-                @Html.Partial("_LoginPartial")
+                <ul class="nav navbar-nav navbar-right">
+                    @Html.Partial("_LoginPartial")
+                </ul>
             </div>
         </div>
-    </div>
+    </nav>
+
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Garbo-Men Inc.</p>
+            <p style="color:antiquewhite">&copy; @DateTime.Now.Year - Garbo-Men Inc.</p>
         </footer>
     </div>
 

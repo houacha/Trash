@@ -3,28 +3,34 @@
     ViewBag.Title = "ChangeUsername";
 }
 
-<h2>@ViewBag.Title.</h2>
+<h2 style="color:ghostwhite">@ViewBag.Title.</h2>
 
 @using (Html.BeginForm("ChangeUsername", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-    <h4>Change Username Form</h4>
+    <h4 style="color:ghostwhite">Change Username Form</h4>
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
-        @Html.LabelFor(m => m.OldUsername, new { @class = "col-md-2 control-label" })
+        <span style="color:ghostwhite">
+            @Html.LabelFor(m => m.OldUsername, new { @class = "col-md-2 control-label" })
+        </span>
         <div class="col-md-10">
             @Html.EditorFor(m => m.OldUsername, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.NewUsername, new { @class = "col-md-2 control-label" })
+        <span style="color:ghostwhite">
+            @Html.LabelFor(m => m.NewUsername, new { @class = "col-md-2 control-label" })
+        </span>
         <div class="col-md-10">
             @Html.EditorFor(m => m.NewUsername, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmUsername, new { @class = "col-md-2 control-label" })
+        <span style="color:ghostwhite">
+            @Html.LabelFor(m => m.ConfirmUsername, new { @class = "col-md-2 control-label" })
+        </span>
         <div class="col-md-10">
             @Html.EditorFor(m => m.ConfirmUsername, new { @class = "form-control" })
         </div>

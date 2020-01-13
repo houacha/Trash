@@ -6,18 +6,20 @@
 
 @if (Model.Day != DateTime.Now.DayOfWeek.ToString())
 {
-    <h2>@Model.Day<text>'s Pick-ups</text></h2>
+    <h2 style="color:ghostwhite">@Model.Day<text>'s Pick-ups</text></h2>
 }
 else
 {
-    <h2>Today's Pick-ups</h2>
+    <h2 style="color:ghostwhite">Today's Pick-ups</h2>
 }
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     <div class="form-group">
-        @Html.LabelFor(model => model.Day, htmlAttributes: new { @class = "control-label col-md-2" })
+        <span style="color:ghostwhite">
+            @Html.LabelFor(model => model.Day, htmlAttributes: new { @class = "control-label col-md-2" })
+        </span>
         <div class="col-md-10">
             @Html.DropDownListFor(model => model.Day, Model.DayWeek, "Select A Day")
             <div class="form-group">
@@ -27,99 +29,101 @@ else
     </div>
 }
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Customers[0].FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Customers[0].LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Customers[0].ApplicationUser.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Customers[0].Address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Customers[0].City)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Customers[0].State)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Customers[0].Zip)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Customers[0].Balance)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Customers[0].PickupDay)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Customers[0].ExtraPickupDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Customers[0].SuspendedStart)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Customers[0].SuspendedEnd)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Customers[0].PickupConfirmed)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model.Customers)
-    {
+<div style="background-color:seashell; opacity:.8; display:inline-block">
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ApplicationUser.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.City)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.State)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Zip)
-            </td>
-            <td>
-                $ @Html.DisplayFor(modelItem => item.Balance).00
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PickupDay)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ExtraPickupDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SuspendedStart)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SuspendedEnd)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PickupConfirmed)
-            </td>
-            <td>
-                @Html.ActionLink("Confirm Pick-up", "ConfirmPick", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id })
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.Customers[0].FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customers[0].LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customers[0].ApplicationUser.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customers[0].Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customers[0].City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customers[0].State)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customers[0].Zip)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customers[0].Balance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customers[0].PickupDay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customers[0].ExtraPickupDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customers[0].SuspendedStart)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customers[0].SuspendedEnd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customers[0].PickupConfirmed)
+            </th>
+            <th></th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model.Customers)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApplicationUser.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.State)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Zip)
+                </td>
+                <td>
+                    $ @Html.DisplayFor(modelItem => item.Balance).00
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PickupDay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExtraPickupDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SuspendedStart)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SuspendedEnd)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PickupConfirmed)
+                </td>
+                <td>
+                    @Html.ActionLink("Confirm Pick-up", "ConfirmPick", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id })
+                </td>
+            </tr>
+        }
 
-<img src="@ViewBag.StaticMapUri" />
+    </table>
+</div>
+
+<img src="@ViewBag.StaticMapUri" style="opacity:.95" align="middle"/>

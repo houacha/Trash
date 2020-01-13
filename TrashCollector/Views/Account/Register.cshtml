@@ -3,36 +3,44 @@
     ViewBag.Title = "Register";
 }
 
-<h2>@ViewBag.Title.</h2>
+<h2 style="color:ghostwhite">@ViewBag.Title.</h2>
 
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-    <h4>Create a new account.</h4>
+    <h4 style="color:ghostwhite">Create a new account.</h4>
     <hr />
 
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+        <span style="color:ghostwhite">
+            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+        </span>
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+        <span style="color:ghostwhite">
+            @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+        </span>
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+        <span style="color:ghostwhite">
+            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+        </span>
         <div class="col-md-10">
             @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+        <span style="color:ghostwhite">
+            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+        </span>
         <div class="col-md-10">
             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
         </div>
@@ -40,7 +48,9 @@
     if (User.IsInRole("Admin") == true)
     {
         <div class="form-group">
-            @Html.Label("User Role", new { @class = "col-md-2 control-label" })
+            <span style="color:ghostwhite">
+                @Html.Label("User Role", new { @class = "col-md-2 control-label" })
+            </span>
             <div class="col-md-10">
                 @Html.DropDownList("UserRoles", (SelectList)ViewBag.Name, " ")
             </div>

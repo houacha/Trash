@@ -6,109 +6,109 @@
 
 <p class="text-success">@ViewBag.Message</p>
 
-<h2>Details</h2>
+<h2 style="color:ghostwhite">Details</h2>
 
 <div>
-    <h4>Personal Details</h4>
+    <h4 style="color:ghostwhite">Personal Details</h4>
     <hr />
     <dl class="dl-horizontal">
         @if (Model.CanSee != "false")
         {
-            <dt>
+            <dt style="color:ghostwhite">
                 @Html.DisplayNameFor(model => model.FirstName)
             </dt>
 
-            <dd>
+            <dd style="color:ghostwhite">
                 @Html.DisplayFor(model => model.FirstName)
             </dd>
 
-            <dt>
+            <dt style="color:ghostwhite">
                 @Html.DisplayNameFor(model => model.LastName)
             </dt>
 
-            <dd>
+            <dd style="color:ghostwhite">
                 @Html.DisplayFor(model => model.LastName)
             </dd>
 
-            <dt>
+            <dt style="color:ghostwhite">
                 @Html.DisplayNameFor(model => model.ApplicationUser.Email)
             </dt>
 
-            <dd>
+            <dd style="color:ghostwhite">
                 @Html.DisplayFor(model => model.ApplicationUser.Email)
             </dd>
 
-            <dt>
+            <dt style="color:ghostwhite">
                 @Html.DisplayNameFor(model => model.Address)
             </dt>
 
-            <dd>
+            <dd style="color:ghostwhite">
                 @Html.DisplayFor(model => model.Address)
             </dd>
 
-            <dt>
+            <dt style="color:ghostwhite">
                 @Html.DisplayNameFor(model => model.City)
             </dt>
 
-            <dd>
+            <dd style="color:ghostwhite">
                 @Html.DisplayFor(model => model.City)
             </dd>
 
-            <dt>
+            <dt style="color:ghostwhite">
                 @Html.DisplayNameFor(model => model.State)
             </dt>
 
-            <dd>
+            <dd style="color:ghostwhite">
                 @Html.DisplayFor(model => model.State)
             </dd>
 
-            <dt>
+            <dt style="color:ghostwhite">
                 @Html.DisplayNameFor(model => model.Zip)
             </dt>
 
-            <dd>
+            <dd style="color:ghostwhite">
                 @Html.DisplayFor(model => model.Zip)
             </dd>
 
-            <dt>
+            <dt style="color:ghostwhite">
                 @Html.DisplayNameFor(model => model.Balance)
             </dt>
 
-            <dd>
+            <dd style="color:ghostwhite">
                 $ @Html.DisplayFor(model => model.Balance).00
             </dd>
         }
         @if (Model.CanSee != "true")
         {
-            <dt>
+            <dt style="color:ghostwhite">
                 @Html.DisplayNameFor(model => model.PickupDay)
             </dt>
 
-            <dd>
+            <dd style="color:ghostwhite">
                 @Html.DisplayFor(model => model.PickupDay)
             </dd>
 
-            <dt>
+            <dt style="color:ghostwhite">
                 @Html.DisplayNameFor(model => model.ExtraPickupDate)
             </dt>
 
-            <dd>
+            <dd style="color:ghostwhite">
                 @Html.DisplayFor(model => model.ExtraPickupDate)
             </dd>
 
-            <dt>
+            <dt style="color:ghostwhite">
                 @Html.DisplayNameFor(model => model.SuspendedStart)
             </dt>
 
-            <dd>
+            <dd style="color:ghostwhite">
                 @Html.DisplayFor(model => model.SuspendedStart)
             </dd>
 
-            <dt>
+            <dt style="color:ghostwhite">
                 @Html.DisplayNameFor(model => model.SuspendedEnd)
             </dt>
 
-            <dd>
+            <dd style="color:ghostwhite">
                 @Html.DisplayFor(model => model.SuspendedEnd)
             </dd>
         }
@@ -118,11 +118,11 @@
 </div>
 @if (User.IsInRole("Customer") != true)
 {
-    <img src="@ViewBag.StaticMapUri" alt="Static Map Image" />
+    <img src="@ViewBag.StaticMapUri" alt="Static Map Image" style="opacity:.95"/>
     <br />
     <br />
 }
-<p>
+<p style="font-weight:bold">
     @if (User.IsInRole("Employee") == true || User.IsInRole("Manager") == true || User.IsInRole("Admin") == true)
     {
         if (User.IsInRole("Admin") == true)

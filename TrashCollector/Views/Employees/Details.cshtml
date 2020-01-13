@@ -10,41 +10,41 @@
     <h4>Personal Details</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
+        <dt style="color:ghostwhite">
             @Html.DisplayNameFor(model => model.ApplicationUser.Email)
         </dt>
 
-        <dd>
+        <dd style="color:ghostwhite">
             @Html.DisplayFor(model => model.ApplicationUser.Email)
         </dd>
 
-        <dt>
+        <dt style="color:ghostwhite">
             @Html.DisplayNameFor(model => model.FirstName)
         </dt>
 
-        <dd>
+        <dd style="color:ghostwhite">
             @Html.DisplayFor(model => model.FirstName)
         </dd>
 
-        <dt>
+        <dt style="color:ghostwhite">
             @Html.DisplayNameFor(model => model.LastName)
         </dt>
 
-        <dd>
+        <dd style="color:ghostwhite">
             @Html.DisplayFor(model => model.LastName)
         </dd>
 
-        <dt>
+        <dt style="color:ghostwhite">
             @Html.DisplayNameFor(model => model.Zip)
         </dt>
 
-        <dd>
+        <dd style="color:ghostwhite">
             @Html.DisplayFor(model => model.Zip)
         </dd>
 
     </dl>
 </div>
-<p>
+<p style="font-weight:bold">
     @if (Model.Id == ViewBag.Id)
     {
         @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
