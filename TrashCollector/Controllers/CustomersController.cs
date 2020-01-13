@@ -18,11 +18,6 @@ namespace TrashCollector.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public void Api()
-        {
-
-
-        }
         // GET: Customers
         public ActionResult Index()
         {
@@ -81,16 +76,10 @@ namespace TrashCollector.Controllers
                     string mapUri = string.Format("https://maps.googleapis.com/maps/api/staticmap?center={0}&zoom=13&size=600x300&maptype=roadmap&{2}key={1}", Uri.EscapeDataString(zip), "AIzaSyCGKMApsiQJT - YV_KWIV63HXtTMITjhPiw", markers);
                     return mapUri;
                 }
-                else
-                {
-                    return "";
-                }
             }
-            else
-            {
-                return "";
-            }
+            return "";
         }
+
         public ActionResult Filter()
         {
             var today = Convert.ToString(DateTime.Now.DayOfWeek);
@@ -99,6 +88,7 @@ namespace TrashCollector.Controllers
             ViewBag.StaticMapUri = mapUri;
             return View("Index", model);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Filter(FilterViewModel model)
@@ -108,6 +98,7 @@ namespace TrashCollector.Controllers
             ViewBag.StaticMapUri = mapUri;
             return View("Index", filterModel);
         }
+
         // GET: Customers/Details/5
         public ActionResult Details(int? id, Messages? messages, string value)
         {
@@ -173,6 +164,7 @@ namespace TrashCollector.Controllers
             var person = db.Customers.Where(c => c.ApplicationId == Id).Select(c => c).SingleOrDefault();
             return View(person);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Register(Customer customer)
@@ -240,7 +232,6 @@ namespace TrashCollector.Controllers
                 person.City = customer.City;
                 person.State = customer.State;
                 person.Zip = customer.Zip;
-                //db.Entry(customer).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Details");
             }
@@ -260,6 +251,7 @@ namespace TrashCollector.Controllers
             var model = PeopleFilter(customer.PickupDay);
             return View("Index", model);
         }
+
         [HttpPost]
         public ActionResult ConfirmPick(FilterViewModel model)
         {
@@ -303,6 +295,7 @@ namespace TrashCollector.Controllers
             db.SaveChanges();
             return View("Index", "Home");
         }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

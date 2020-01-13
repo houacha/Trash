@@ -132,7 +132,6 @@ namespace TrashCollector.Controllers
                 person.LastName = employee.LastName;
                 person.Zip = employee.Zip;
                 person.ApplicationUser.Email = employee.ApplicationUser.Email;
-                //db.Entry(employee).State = EntityState.Modified;
                 db.SaveChanges();
                 ViewBag.Id = person.Id;
                 return View("Details", person);
