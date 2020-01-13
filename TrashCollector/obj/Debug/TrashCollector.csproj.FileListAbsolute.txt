@@ -107,3 +107,10 @@ C:\Users\houac\Desktop\Devcode\Trash Collector\TrashCollector\TrashCollector\obj
 C:\Users\houac\Desktop\Devcode\Trash Collector\TrashCollector\TrashCollector\obj\Debug\TrashCollector.Migrations.roles.resources
 C:\Users\houac\Desktop\Devcode\Trash Collector\TrashCollector\TrashCollector\obj\Debug\TrashCollector.Migrations.updatecustomers.resources
 C:\Users\houac\Desktop\Devcode\Trash Collector\TrashCollector\TrashCollector\obj\Debug\TrashCollector.Migrations.addrequiredparameterstomodels.resources
+C:\Users\houac\Desktop\Devcode\Trash Collector\TrashCollector\TrashCollector\obj\Debug\TrashCollector.Migrations.update.resources
+C:\Users\houac\Desktop\Devcode\Trash Collector\TrashCollector\TrashCollector\obj\Debug\TrashCollector.Migrations.addcustomerpickupconfirm.resources
+C:\Users\houac\Desktop\Devcode\Trash Collector\TrashCollector\TrashCollector\obj\Debug\TrashCollector.Migrations.addedhiddenproptocustomer.resources
+C:\Users\houac\Desktop\Devcode\Trash Collector\TrashCollector\TrashCollector\obj\Debug\TrashCollector.Migrations.changepropertyname.resources
+C:\Users\houac\Desktop\Devcode\Trash Collector\TrashCollector\TrashCollector\bin\Google.Maps.dll
+C:\Users\houac\Desktop\Devcode\Trash Collector\TrashCollector\TrashCollector\obj\Debug\TrashCollector.Migrations.viewmodelpropertychange.resources
+C:\Users\houac\Desktop\Devcode\Trash Collector\TrashCollector\TrashCollector\obj\Debug\TrashCollector.Migrations.changepropvalueofapropinviewmodel.resources

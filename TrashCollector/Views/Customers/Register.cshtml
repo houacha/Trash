@@ -19,14 +19,14 @@
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.PickupDay, new List<SelectListItem>
            {
-               new SelectListItem { Text = "Monday", Value = "Monday", Selected = true},
+               new SelectListItem { Text = "Monday", Value = "Monday"},
                new SelectListItem { Text = "Tuesday", Value = "Tuesday"},
                new SelectListItem { Text = "Wednesday", Value = "Wednesday"},
                new SelectListItem { Text = "Thurday", Value = "Thursday"},
                new SelectListItem { Text = "Friday", Value = "Friday"},
                new SelectListItem { Text = "Saturday", Value = "Saturday"},
                new SelectListItem { Text = "Sunday", Value = "Sunday"},
-           })
+           },"Select A Day")
             </div>
         </div>
 
@@ -63,7 +63,8 @@
 
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("View Orders", "Details", new { value = "false" }) |
+    @Html.ActionLink("Home", "Balance")
 </div>
 
 @section Scripts {

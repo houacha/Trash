@@ -18,23 +18,60 @@ namespace TrashCollector.Controllers
         // GET: Employees
         public ActionResult Index()
         {
-            //var employees = db.Employees.Include(e => e.ApplicationUser);
-            //return View(employees.ToList());
-            return View("Index", "Customers");
+            CustomerEmployeeViewModel allUser = new CustomerEmployeeViewModel();
+            allUser.Customers = db.Customers.Include(c=>c.ApplicationUser).Select(c => c).ToList();
+            allUser.Employees = db.Employees.Include(e=>e.ApplicationUser).Select(e=>e).ToList();
+            var users = db.Users.Select(u => u.Roles.FirstOrDefault()).ToList();
+            List <Microsoft.AspNet.Identity.EntityFramework.IdentityRole> allRoles = new List<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>();
+            var roles = db.Roles.Select(r => r).ToList();
+            foreach (var user in users)
+            {
+                foreach (var role in roles)
+                {
+                    if (user.RoleId == role.Id)
+                    {
+                        allRoles.Add(role);
+                        break;
+                    }
+                }
+            }
+            allUser.Roles = allRoles;
+            return View(allUser);
         }
 
         // GET: Employees/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            Employee employee;
+            string currentId = User.Identity.GetUserId();
+            var currentUser = db.Employees.Include(e=>e.ApplicationUser).Where(e => e.ApplicationId == currentId).Select(e => e).SingleOrDefault();
+            if (User.IsInRole("Employee") == true)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                employee = currentUser;
             }
-            Employee employee = db.Employees.Find(id);
-            if (employee == null)
+            else
             {
-                return HttpNotFound();
+                if (id == null)
+                {
+                    if (User.IsInRole("Manager") == true || User.IsInRole("Admin") == true)
+                    {
+                        employee = currentUser;
+                    }
+                    else
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
+                }
+                else
+                {
+                    employee = db.Employees.Include(e => e.ApplicationUser).Where(e => e.Id == id).Select(e => e).SingleOrDefault();
+                }
+                if (employee == null)
+                {
+                    return HttpNotFound();
+                }
             }
+            ViewBag.Id = currentUser.Id;
             return View(employee);
         }
 
@@ -54,10 +91,11 @@ namespace TrashCollector.Controllers
         {
             if (ModelState.IsValid)
             {
-                employee.ApplicationId = User.Identity.GetUserId();
+                var id =  User.Identity.GetUserId();
+                employee.ApplicationId = id;
                 db.Employees.Add(employee);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("LogOut", "Account");
             }
 
             ViewBag.ApplicationId = new SelectList(db.Users, "Id", "Email", employee.ApplicationId);
@@ -71,7 +109,7 @@ namespace TrashCollector.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = db.Employees.Find(id);
+            var employee = db.Employees.Include(e => e.ApplicationUser).Where(e => e.Id == id).Select(e => e).SingleOrDefault();
             if (employee == null)
             {
                 return HttpNotFound();
@@ -85,13 +123,19 @@ namespace TrashCollector.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Zip,ApplicationId")] Employee employee)
+        public ActionResult Edit(int? id, Employee employee)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(employee).State = EntityState.Modified;
+                var person = db.Employees.Where(e => e.Id == id).Select(e => e).SingleOrDefault();
+                person.FirstName = employee.FirstName;
+                person.LastName = employee.LastName;
+                person.Zip = employee.Zip;
+                person.ApplicationUser.Email = employee.ApplicationUser.Email;
+                //db.Entry(employee).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                ViewBag.Id = person.Id;
+                return View("Details", person);
             }
             ViewBag.ApplicationId = new SelectList(db.Users, "Id", "Email", employee.ApplicationId);
             return View(employee);
@@ -118,6 +162,8 @@ namespace TrashCollector.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Employee employee = db.Employees.Find(id);
+            var user = db.Users.Where(u => u.Id == employee.ApplicationId).Select(u => u).SingleOrDefault();
+            db.Users.Remove(user);
             db.Employees.Remove(employee);
             db.SaveChanges();
             return RedirectToAction("Index");

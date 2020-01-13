@@ -52,6 +52,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Google.Maps, Version=0.32.0.0, Culture=neutral, PublicKeyToken=4aa992bb5d22d4ff, processorArchitecture=MSIL">
+      <HintPath>..\packages\gmaps-api-net.0.32.0\lib\net461\Google.Maps.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -195,8 +198,33 @@
     <Compile Include="Migrations\202001090443191_add required parameters to models.designer.cs">
       <DependentUpon>202001090443191_add required parameters to models.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001092123335_update.cs" />
+    <Compile Include="Migrations\202001092123335_update.designer.cs">
+      <DependentUpon>202001092123335_update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001110249597_add customer pickup confirm.cs" />
+    <Compile Include="Migrations\202001110249597_add customer pickup confirm.designer.cs">
+      <DependentUpon>202001110249597_add customer pickup confirm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001110342014_added hidden prop to customer.cs" />
+    <Compile Include="Migrations\202001110342014_added hidden prop to customer.designer.cs">
+      <DependentUpon>202001110342014_added hidden prop to customer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001112332565_change property name.cs" />
+    <Compile Include="Migrations\202001112332565_change property name.designer.cs">
+      <DependentUpon>202001112332565_change property name.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001121955270_viewmodel property change.cs" />
+    <Compile Include="Migrations\202001121955270_viewmodel property change.designer.cs">
+      <DependentUpon>202001121955270_viewmodel property change.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001122018536_change prop value of a prop in view model.cs" />
+    <Compile Include="Migrations\202001122018536_change prop value of a prop in view model.designer.cs">
+      <DependentUpon>202001122018536_change prop value of a prop in view model.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\FilterViewModel.cs" />
     <Compile Include="Models\CustomerEmployeeViewModel.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -274,6 +302,8 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
     <Content Include="Views\Customers\Register.cshtml" />
+    <Content Include="Views\Manage\ChangeUsername.cshtml" />
+    <Content Include="Views\Customers\Balance.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -303,6 +333,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001090443191_add required parameters to models.resx">
       <DependentUpon>202001090443191_add required parameters to models.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001092123335_update.resx">
+      <DependentUpon>202001092123335_update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001110249597_add customer pickup confirm.resx">
+      <DependentUpon>202001110249597_add customer pickup confirm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001110342014_added hidden prop to customer.resx">
+      <DependentUpon>202001110342014_added hidden prop to customer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001112332565_change property name.resx">
+      <DependentUpon>202001112332565_change property name.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001121955270_viewmodel property change.resx">
+      <DependentUpon>202001121955270_viewmodel property change.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001122018536_change prop value of a prop in view model.resx">
+      <DependentUpon>202001122018536_change prop value of a prop in view model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

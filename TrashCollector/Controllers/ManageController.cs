@@ -15,6 +15,7 @@ namespace TrashCollector.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public ManageController()
         {
@@ -56,6 +57,7 @@ namespace TrashCollector.Controllers
         {
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
+                : message == ManageMessageId.ChangeUsernameSuccess ? "Your username has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
                 : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
                 : message == ManageMessageId.Error ? "An error has occurred."
@@ -211,6 +213,47 @@ namespace TrashCollector.Controllers
                 await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
             }
             return RedirectToAction("Index", new { Message = ManageMessageId.RemovePhoneSuccess });
+        }
+
+        public ActionResult ChangeUsername()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ChangeUsername(ChangeUsernameViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            bool result = ChangeUName(model);
+            if (result == true)
+            {
+                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                if (user != null)
+                {
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                }
+                return RedirectToAction("Index", new { Message = ManageMessageId.ChangeUsernameSuccess });
+            }
+            return View(model);
+        }
+
+        public bool ChangeUName(ChangeUsernameViewModel model)
+        {
+            try
+            {
+                var Id = User.Identity.GetUserId();
+                var user = db.Users.Where(u => u.Id == Id).Select(u => u).SingleOrDefault();
+                user.UserName = model.NewUsername;
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         //
@@ -376,6 +419,7 @@ namespace TrashCollector.Controllers
         public enum ManageMessageId
         {
             AddPhoneSuccess,
+            ChangeUsernameSuccess,
             ChangePasswordSuccess,
             SetTwoFactorSuccess,
             SetPasswordSuccess,

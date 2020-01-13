@@ -83,15 +83,38 @@ namespace TrashCollector.Controllers
                         case "Admin":
                             return RedirectToAction("Index", "Role");
                         case "Employee":
-                            return RedirectToAction("Index", "Employees");
+                            var employee = context.Employees.Where(e => e.ApplicationId == user.UserId).Select(e => e).SingleOrDefault();
+                            if (employee == null)
+                            {
+                                return RedirectToAction("Create", "Employees");
+                            }
+                            else 
+                            {
+                                return RedirectToAction("Filter", "Customers");
+                            }
                         case "Customer":
-                            return RedirectToAction("Index", "Customers");
+                            var customer = context.Customers.Where(c => c.ApplicationId == user.UserId).Select(c => c).SingleOrDefault();
+                            if (customer == null)
+                            {
+                                return RedirectToAction("Create", "Customers");
+                            }
+                            else
+                            {
+                                return RedirectToAction("Balance", "Customers");
+                            }
                         case "Manager":
-                            return RedirectToAction("Details", "Employees");
+                            var manager = context.Employees.Where(e => e.ApplicationId == user.UserId).Select(e => e).SingleOrDefault();
+                            if (manager == null)
+                            {
+                                return RedirectToAction("Create", "Employees");
+                            }
+                            else
+                            {
+                                return RedirectToAction("Index", "Employees");
+                            }
                         default:
-                            break;
+                            return RedirectToLocal(returnUrl);
                     }
-                    return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -170,12 +193,11 @@ namespace TrashCollector.Controllers
                 {
                     if (User.IsInRole("Admin") == true)
                     {
-                        //model.UserRoles = "Employee";
                         await this.UserManager.AddToRoleAsync(user.Id, model.UserRoles);
                         return RedirectToAction("Index", "Home");
                     }
                     else
-                    {                        
+                    {
                         model.UserRoles = "Customer";
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
@@ -208,7 +230,7 @@ namespace TrashCollector.Controllers
             if (userId == null || code == null)
             {
                 return View("Error");
-            }
+            } //this is a happy comment
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
@@ -278,8 +300,7 @@ namespace TrashCollector.Controllers
             }
             var user = await UserManager.FindByNameAsync(model.Email);
             if (user == null)
-            {
-                // Don't reveal that the user does not exist
+            {//DONT REVEAL. DONT REVEAL. NEVER REVEAL 
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
             var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
@@ -309,7 +330,7 @@ namespace TrashCollector.Controllers
             // Request a redirect to the external login provider
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
-
+        //one time when i was 5 i shit my pants to get out of going to school 
         //
         // GET: /Account/SendCode
         [AllowAnonymous]
@@ -412,7 +433,11 @@ namespace TrashCollector.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View(model);
         }
-
+        public ActionResult LogOut()
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("Login");
+        }
         //
         // POST: /Account/LogOff
         [HttpPost]

@@ -39,6 +39,21 @@ namespace TrashCollector.Models
         public string ConfirmPassword { get; set; }
     }
 
+    public class ChangeUsernameViewModel
+    {
+        [Required]
+        [Display(Name = "Current username")]
+        public string OldUsername { get; set; }
+
+        [Required]
+        [Display(Name = "New username")]
+        public string NewUsername { get; set; }
+
+        [Display(Name = "Confirm new username")]
+        [Compare("NewUsername", ErrorMessage = "The new username and confirmation username do not match.")]
+        public string ConfirmUsername { get; set; }
+    }
+
     public class ChangePasswordViewModel
     {
         [Required]

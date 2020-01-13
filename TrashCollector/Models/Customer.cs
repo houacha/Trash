@@ -35,6 +35,11 @@ namespace TrashCollector.Models
         public string SuspendedStart { get; set; }
         [Display(Name = "Suspended End")]
         public string SuspendedEnd { get; set; }
+        [Display(Name = "Confirm Pick-ups")]
+        public bool PickupConfirmed { get; set; }
+        [NotMapped]
+        [HiddenInput]
+        public string CanSee { get; set; }
         [ForeignKey("ApplicationUser")]
         public string ApplicationId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }

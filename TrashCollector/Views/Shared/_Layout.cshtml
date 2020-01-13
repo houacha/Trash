@@ -17,28 +17,35 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Garbo-Men", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>
-                        @if (User.IsInRole("Admin") == true)
-                        {
-                            @Html.ActionLink("Add Employee", "Index", "Role")
-                        }
-                        else if (User.IsInRole("Employee") == true)
-                        {
-                            @Html.ActionLink("Home", "Index", "Customers")
-                        }
-                        else if (User.IsInRole("Customer") == true)
-                        {
-                            @Html.ActionLink("Register Pick-up", "Register", "Customers")
-                        }
-                        else
-                        {
-                            @Html.ActionLink("Home", "Index", "Home")
-                        }
-                    </li>
+
+                    @if (User.IsInRole("Admin") == true)
+                    {
+                        <li> @Html.ActionLink("All Users", "Index", "Employees")</li>
+                        <li> @Html.ActionLink("Add Employee", "Index", "Role")</li>
+                    }
+                    else if (User.IsInRole("Manager") == true)
+                    {
+                        <li> @Html.ActionLink("Home", "Index", "Employees")</li>
+                        <li> @Html.ActionLink("Pick-up Orders", "Filter", "Customers")</li>
+                    }
+                    else if (User.IsInRole("Employee") == true)
+                    {
+                        <li> @Html.ActionLink("Home", "Filter", "Customers")</li>
+                    }
+                    else if (User.IsInRole("Customer") == true)
+                    {
+                        <li> @Html.ActionLink("Balance", "Balance", "Customers")</li>
+                        <li> @Html.ActionLink("Register/Edit Pick-up", "Register", "Customers")</li>
+                    }
+                    else
+                    {
+                        <li> @Html.ActionLink("Home", "Index", "Home")</li>
+                    }
+
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
@@ -50,7 +57,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Garbo-Men Inc.</p>
         </footer>
     </div>
 
