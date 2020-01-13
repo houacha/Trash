@@ -70,8 +70,8 @@ namespace TrashCollector.Controllers
                 {
                     return HttpNotFound();
                 }
+                ViewBag.Id = currentUser.Id;
             }
-            ViewBag.Id = currentUser.Id;
             return View(employee);
         }
 
