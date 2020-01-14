@@ -6,7 +6,7 @@
 
 @if (Model.Day != DateTime.Now.DayOfWeek.ToString())
 {
-    <h2 style="color:ghostwhite">@Model.Day<text>'s Pick-ups</text></h2>
+    <h2 style="color:ghostwhite">@Model.Day<text> Pick-ups</text></h2>
 }
 else
 {
@@ -29,7 +29,7 @@ else
     </div>
 }
 
-<div style="background-color:seashell; opacity:.8; display:inline-block">
+<div style="background-color:seashell; opacity:.85; display:inline-block">
     <table class="table">
         <tr>
             <th>
@@ -125,5 +125,6 @@ else
 
     </table>
 </div>
+
 
 <img src="@ViewBag.StaticMapUri" style="opacity:.95" align="middle"/>

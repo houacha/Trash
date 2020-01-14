@@ -37,6 +37,10 @@ namespace TrashCollector.Models
         public string SuspendedEnd { get; set; }
         [Display(Name = "Confirm Pick-ups")]
         public bool PickupConfirmed { get; set; }
+        [HiddenInput]
+        public string Lat { get; set; }
+        [HiddenInput]
+        public string Lng { get; set; }
         [NotMapped]
         [HiddenInput]
         public string CanSee { get; set; }

@@ -3,6 +3,10 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Owin;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Xml.Linq;
 using TrashCollector.Models;
 
 [assembly: OwinStartupAttribute(typeof(TrashCollector.Startup))]
@@ -12,12 +16,12 @@ namespace TrashCollector
     {
         public void Configuration(IAppBuilder app)
         {
-            ConfigureAuth(app);
-            CreateRolesAndUsers();
-        }
-        private void CreateRolesAndUsers()
-        {
             ApplicationDbContext context = new ApplicationDbContext();
+            ConfigureAuth(app);
+            CreateRolesAndUsers(context);
+        }
+        private void CreateRolesAndUsers(ApplicationDbContext context)
+        {
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
             if (!roleManager.RoleExists("Admin"))

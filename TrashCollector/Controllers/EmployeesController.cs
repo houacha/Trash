@@ -70,6 +70,9 @@ namespace TrashCollector.Controllers
                 {
                     return HttpNotFound();
                 }
+            }
+            if (User.IsInRole("Admin") != true)
+            {
                 ViewBag.Id = currentUser.Id;
             }
             return View(employee);

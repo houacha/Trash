@@ -222,6 +222,14 @@
     <Compile Include="Migrations\202001122018536_change prop value of a prop in view model.designer.cs">
       <DependentUpon>202001122018536_change prop value of a prop in view model.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001140341501_Add lat and lng prop to customer.cs" />
+    <Compile Include="Migrations\202001140341501_Add lat and lng prop to customer.designer.cs">
+      <DependentUpon>202001140341501_Add lat and lng prop to customer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001140352393_made lat and lng find in start.cs" />
+    <Compile Include="Migrations\202001140352393_made lat and lng find in start.designer.cs">
+      <DependentUpon>202001140352393_made lat and lng find in start.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\FilterViewModel.cs" />
@@ -355,6 +363,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001122018536_change prop value of a prop in view model.resx">
       <DependentUpon>202001122018536_change prop value of a prop in view model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001140341501_Add lat and lng prop to customer.resx">
+      <DependentUpon>202001140341501_Add lat and lng prop to customer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001140352393_made lat and lng find in start.resx">
+      <DependentUpon>202001140352393_made lat and lng find in start.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

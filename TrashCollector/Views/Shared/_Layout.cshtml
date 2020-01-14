@@ -43,6 +43,7 @@
                             else if (User.IsInRole("Employee") == true)
                             {
                                 <li> @Html.ActionLink("Home", "Filter", "Customers")</li>
+                                <li> @Html.ActionLink("All Pick-up Orders", "Index", "Customers")</li>
                             }
                             else if (User.IsInRole("Customer") == true)
                             {

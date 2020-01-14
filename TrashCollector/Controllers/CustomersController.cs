@@ -24,7 +24,15 @@ namespace TrashCollector.Controllers
             FilterViewModel model = new FilterViewModel();
             model.DayWeek = new SelectList(new List<string> { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" });
             model.Customers = db.Customers.Include(e => e.ApplicationUser).ToList();
+            var mapUri = Map(model.Customers, "United States");
+            ViewBag.StaticMapUri = mapUri;
             return View(model);
+        }
+        [HttpPost]
+        public ActionResult Index(FilterViewModel model)
+        {
+            var viewModel = PeopleFilter(model.Day);
+            return View("Index", viewModel);
         }
         public ActionResult Balance()
         {
@@ -42,40 +50,44 @@ namespace TrashCollector.Controllers
             model.Customers = db.Customers.Include(c => c.ApplicationUser).Where(c => c.PickupDay == day && c.Zip == user.Zip).Select(c => c).ToList(); // add extra pickup date
             return model;
         }
-        public string Map(List<Customer> customers)
+        public string Map(List<Customer> customers, string location)
         {
-            if (customers != null)
+            if (customers != null && customers.Count > 0)
             {
-                if (customers.Count > 0)
+                var zip = location;
+                var zoom = 13;
+                string markers = "";
+                List<string> addresses = new List<string>();
+                foreach (var customer in customers)
                 {
-                    List<string> addresses = new List<string>();
-                    string markers = "";
-                    var zip = customers[0].Zip;
-                    foreach (var item in customers)
-                    {
-                        addresses.Add(item.Address);
-                    }
-                    foreach (var location in addresses)
-                    {
-                        string requestUri = string.Format("https://maps.googleapis.com/maps/api/geocode/xml?key={1}&address={0}&sensor=false", Uri.EscapeDataString(location), "AIzaSyCGKMApsiQJT - YV_KWIV63HXtTMITjhPiw");
+                    if (customer.Lng == null || customer.Lat == null)
+                    {                        
+                        string requestUri = string.Format("https://maps.googleapis.com/maps/api/geocode/xml?key={1}&address={0}&sensor=false", Uri.EscapeDataString(customer.Address), "AIzaSyCGKMApsiQJT - YV_KWIV63HXtTMITjhPiw");
                         WebRequest request = WebRequest.Create(requestUri);
                         WebResponse response = request.GetResponse();
                         XDocument xdoc = XDocument.Load(response.GetResponseStream());
                         XElement result = xdoc.Element("GeocodeResponse").Element("result");
-
                         if (result != null)
                         {
                             XElement locationElement = result.Element("geometry").Element("location");
                             XElement lat = locationElement.Element("lat");
                             XElement lng = locationElement.Element("lng");
-                            var x = lat.Value;
-                            var y = lng.Value;
-                            markers += "markers=color:red%7Clabel:C%7C" + x + "," + y + "&";
+                            customer.Lat = lat.Value;
+                            customer.Lng = lng.Value;
+                            db.SaveChanges();
                         }
                     }
-                    string mapUri = string.Format("https://maps.googleapis.com/maps/api/staticmap?center={0}&zoom=13&size=600x300&maptype=roadmap&{2}key={1}", Uri.EscapeDataString(zip), "AIzaSyCGKMApsiQJT - YV_KWIV63HXtTMITjhPiw", markers);
-                    return mapUri;
                 }
+                foreach (var item in customers)
+                {
+                    markers += "markers=color:red%7Clabel:C%7C" + item.Lat + "," + item.Lng + "&";
+                }
+                if (location == "United States")
+                {
+                    zoom = 4;
+                }
+                string mapUri = string.Format("https://maps.googleapis.com/maps/api/staticmap?center={0}&zoom={3}&size=650x350&maptype=roadmap&{2}key={1}", Uri.EscapeDataString(zip), "AIzaSyCGKMApsiQJT - YV_KWIV63HXtTMITjhPiw", markers, zoom);
+                return mapUri;
             }
             return "";
         }
@@ -84,7 +96,16 @@ namespace TrashCollector.Controllers
         {
             var today = Convert.ToString(DateTime.Now.DayOfWeek);
             var model = PeopleFilter(today);
-            var mapUri = Map(model.Customers);
+            string zip;
+            if (model.Customers == null || model.Customers.Count == 0)
+            {
+                zip = "";
+            }
+            else
+            {
+                zip = model.Customers[0].Zip;
+            }
+            var mapUri = Map(model.Customers, zip);
             ViewBag.StaticMapUri = mapUri;
             return View("Index", model);
         }
@@ -94,7 +115,16 @@ namespace TrashCollector.Controllers
         public ActionResult Filter(FilterViewModel model)
         {
             var filterModel = PeopleFilter(model.Day);
-            var mapUri = Map(filterModel.Customers);
+            string zip;
+            if (model.Customers == null || model.Customers.Count == 0)
+            {
+                zip = "";
+            }
+            else
+            {
+                zip = model.Customers[0].Zip;
+            }
+            var mapUri = Map(filterModel.Customers, zip);
             ViewBag.StaticMapUri = mapUri;
             return View("Index", filterModel);
         }
@@ -127,7 +157,7 @@ namespace TrashCollector.Controllers
                 }
             }
             customers.Add(customer);
-            var mapUri = Map(customers);
+            var mapUri = Map(customers, customers[0].Zip);
             ViewBag.StaticMapUri = mapUri;
             return View(customer);
         }
